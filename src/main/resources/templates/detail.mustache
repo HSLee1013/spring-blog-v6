@@ -1,25 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
-</head>
-<body>
-<nav>
-    <ul>
-        <li>
-            <a href="#">홈</a>
-        </li>
-        <li>
-            <a href="#">글쓰기</a>
-        </li>
-    </ul>
-</nav>
-
-<hr>
+{{> layout/header}}
 
 <section>
+    <form action="/board/{{model.id}}/delete" method="post">
+        <button type="submit">삭제</button>
+    </form>
     <div>
         번호: {{model.id}}<br>
         제목: {{model.title}}<br>
@@ -29,7 +13,4 @@
 </section>
 
 </body>
-<script>
-    console.log("되냐?");
-</script>
 </html>

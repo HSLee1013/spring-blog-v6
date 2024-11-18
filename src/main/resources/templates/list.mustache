@@ -1,22 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>blog</title>
-</head>
-<body>
-<nav>
-    <ul>
-        <li>
-            <a href="#">홈</a>
-        </li>
-        <li>
-            <a href="#">글쓰기</a>
-        </li>
-    </ul>
-</nav>
-<hr>
+{{> layout/header}}
 <section>
     <table border="1">
         <tr>
@@ -25,11 +7,11 @@
             <th></th>
         </tr>
         {{#models}}
-        <tr>
-            <td>{{id}}</td>
-            <td>{{title}}</td>
-            <td><a href="/board/{{id}}">상세보기</a></td>
-        </tr>
+            <tr>
+                <td>{{id}}</td>
+                <td>{{title}}</td>
+                <td><a href="/board/{{id}}">상세보기</a></td>
+            </tr>
         {{/models}}
     </table>
 </section>

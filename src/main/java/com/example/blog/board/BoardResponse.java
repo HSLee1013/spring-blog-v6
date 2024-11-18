@@ -1,5 +1,6 @@
 package com.example.blog.board;
 
+import com.example.blog._core.util.MyDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class BoardResponse {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
-            this.createdAt = board.getCreatedAt().toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+            this.createdAt = MyDate.formatToStr(board.getCreatedAt());
         }
     }
 
