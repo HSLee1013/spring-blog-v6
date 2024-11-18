@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -31,5 +32,16 @@ public class BoardController {
         List<BoardResponse.DTO> boardList = boardService.게시글목록보기();
         model.addAttribute("models", boardList);
         return "list";
+    }
+
+    /**
+     * 쿼리스트링(where절) : /board?title=바다
+     * 패스변수(where절) : /board/1
+     */
+    @GetMapping("/board/{id}")
+    public String detail(@PathVariable("id") int id, Model model) {
+        BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id);
+        model.addAttribute("model", boardDetail);
+        return "detail";
     }
 }

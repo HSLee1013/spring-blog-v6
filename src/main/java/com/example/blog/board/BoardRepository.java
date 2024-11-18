@@ -18,4 +18,10 @@ public class BoardRepository {
         Query q = entityManager.createNativeQuery("select * from board_tb order by id desc", Board.class);
         return q.getResultList();
     }
+
+    public Board findById(int id) {
+        Query q = entityManager.createNativeQuery("select * from board_tb where id = ?", Board.class);
+        q.setParameter(1, id);
+        return (Board) q.getSingleResult();
+    }
 }

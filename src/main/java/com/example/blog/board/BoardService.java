@@ -22,4 +22,9 @@ public class BoardService {
         }
         return dtoList;
     }
+
+    public BoardResponse.DetailDTO 게시글상세보기(int id) {
+        Board board = boardRepository.findById(id);
+        return new BoardResponse.DetailDTO(board);
+    }
 }
