@@ -17,6 +17,19 @@ public class BoardController {
     // final 키워드를 사용하면 반드시 초기화해야 하므로, 실수를 방지할 수 있다.
     private final BoardService boardService;
 
+    @PostMapping("/board/{id}/update")
+    public String update(@PathVariable int id, BoardRequest.UpdateDTO updateDTO) {
+        boardService.게시글수정(id,updateDTO);
+        return "redirect:/";
+    }
+
+    @GetMapping("/board/{id}/update")
+    public String updateForm(@PathVariable int id, Model model) {
+        BoardResponse.UpdateFormDTO updateFormDTO = boardService.게시글수정화면보기(id);
+        model.addAttribute("model", updateFormDTO);
+        return "update-form";
+    }
+
     @PostMapping("/board/{id}/delete")
     public String delete(@PathVariable("id") int id) {
         boardService.게시글삭제(id);

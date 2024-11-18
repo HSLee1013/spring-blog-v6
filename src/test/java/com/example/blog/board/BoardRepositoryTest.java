@@ -15,6 +15,22 @@ public class BoardRepositoryTest { // 클래스 명 뒤에 Test를 붙이는게 
     BoardRepository boardRepository;
 
     @Test
+    public void update_test() {
+        // given
+        int id = 1;
+        String title = "제목1수정";
+        String content = "내용1수정";
+
+        // when
+        boardRepository.update(id, title, content);
+
+        // then(eye)
+        Board board = boardRepository.findById(id);
+        System.out.println(board.getTitle());
+        System.out.println(board.getContent());
+    }
+
+    @Test
     public void delete_test() {
         // given
         int id = 1;
