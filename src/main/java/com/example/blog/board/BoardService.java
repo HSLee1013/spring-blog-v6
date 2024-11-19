@@ -16,6 +16,7 @@ public class BoardService {
 
     @Transactional
     public void 게시글수정(int id, BoardRequest.UpdateDTO updateDTO) {
+        // 1. 게시글 조회, 2. 게시글 수정 권한, 3. 게시글 수정, 4. 수정된 엔터티 응답
         boardRepository.update(id, updateDTO.getTitle(), updateDTO.getContent());
     }
 

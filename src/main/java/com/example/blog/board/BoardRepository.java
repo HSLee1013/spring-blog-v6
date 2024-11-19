@@ -14,6 +14,7 @@ public class BoardRepository {
     // JPA는 EntityManager로 DB에 접근한다 (자바에서 DBConnection)
     private final EntityManager entityManager;
 
+    // DTO에 의존하지 않게 하기 위해 DTO에서 꺼내서 매개변수를 받는다.
     public void update(int id, String title, String content) {
         Query q = entityManager.createNativeQuery("update board_tb set title=?, content=? where id=?");
         q.setParameter(1, title);
