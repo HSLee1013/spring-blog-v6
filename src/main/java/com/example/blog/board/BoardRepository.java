@@ -36,6 +36,10 @@ public class BoardRepository {
         q.executeUpdate();
     }
 
+    public void save(Board board) {
+        entityManager.persist(board);
+    }
+
     public List<Board> findAll() {
         Query q = entityManager.createNativeQuery("select * from board_tb order by id desc", Board.class);
         return q.getResultList();
