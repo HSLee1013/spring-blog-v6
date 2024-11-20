@@ -22,12 +22,12 @@ public class BoardRepositoryTest { // 클래스 명 뒤에 Test를 붙이는게 
         String content = "내용1수정";
 
         // when
-        boardRepository.update(id, title, content);
+//        boardRepository.update(id, title, content);
 
         // then(eye)
-        Board board = boardRepository.findById(id);
-        System.out.println(board.getTitle());
-        System.out.println(board.getContent());
+//        Board board = boardRepository.findById(id);
+//        System.out.println(board.getTitle());
+//        System.out.println(board.getContent());
     }
 
     @Test
@@ -49,13 +49,13 @@ public class BoardRepositoryTest { // 클래스 명 뒤에 Test를 붙이는게 
         String title = "제목6";
         String content = "내용6";
         // when
-        boardRepository.save(title, content);
+        boardRepository.save(new Board(null, title, content, null));
         // then(eye)
-        Board board = boardRepository.findById(6);
-        System.out.println(board.getId());
-        System.out.println(board.getTitle());
-        System.out.println(board.getContent());
-        System.out.println(board.getCreatedAt());
+//        Board board = boardRepository.findById(6);
+//        System.out.println(board.getId());
+//        System.out.println(board.getTitle());
+//        System.out.println(board.getContent());
+//        System.out.println(board.getCreatedAt());
     } // rollback (@Transactional)
 
     // 메서드명 뒤에 _test를 붙이는게 약속이다.

@@ -1,10 +1,7 @@
 package com.example.blog.board;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -25,4 +22,9 @@ public class Board {
     private String content;
     @CreationTimestamp
     private Timestamp createdAt;
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
