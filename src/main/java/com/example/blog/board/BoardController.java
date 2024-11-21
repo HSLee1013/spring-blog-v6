@@ -1,8 +1,12 @@
 package com.example.blog.board;
 
+import com.example.blog._core.error.ex.Exception400;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,29 +22,26 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/board/{id}/update")
-    public String update(@PathVariable int id, BoardRequest.UpdateDTO updateDTO) {
+    public String update(@PathVariable Integer id, @Valid BoardRequest.UpdateDTO updateDTO, Errors errors) {
         boardService.게시글수정(id, updateDTO);
         return "redirect:/board/" + id;
     }
 
     @GetMapping("/board/{id}/update")
-    public String updateForm(@PathVariable int id, Model model) {
+    public String updateForm(@PathVariable Integer id, Model model) {
         BoardResponse.UpdateFormDTO updateFormDTO = boardService.게시글수정화면보기(id);
         model.addAttribute("model", updateFormDTO);
         return "update-form";
     }
 
     @PostMapping("/board/{id}/delete")
-    public String delete(@PathVariable("id") int id) {
+    public String delete(@PathVariable("id") Integer id) {
         boardService.게시글삭제(id);
         return "redirect:/";
     }
 
     @PostMapping("/board/save")
-    public String save(BoardRequest.SaveDTO saveDTO) {
-        // TODO: 나중에 삭제하기
-        if (saveDTO.getTitle().isBlank())
-            throw new RuntimeException("title에 공백 혹은 null이 들어갈 수 없습니다.");
+    public String save(@Valid BoardRequest.SaveDTO saveDTO, Errors errors) {
         boardService.게시글쓰기(saveDTO);
         return "redirect:/";
     }
@@ -55,7 +56,7 @@ public class BoardController {
      * 패스변수(where절) : /board/1
      */
     @GetMapping("/board/{id}")
-    public String detail(@PathVariable("id") int id, Model model) {
+    public String detail(@PathVariable("id") Integer id, Model model) {
         BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id);
         model.addAttribute("model", boardDetail);
         return "detail";
