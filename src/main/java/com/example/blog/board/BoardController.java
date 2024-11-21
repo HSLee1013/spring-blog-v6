@@ -38,6 +38,9 @@ public class BoardController {
 
     @PostMapping("/board/save")
     public String save(BoardRequest.SaveDTO saveDTO) {
+        // TODO: 나중에 삭제하기
+        if (saveDTO.getTitle().isBlank())
+            throw new RuntimeException("title에 공백 혹은 null이 들어갈 수 없습니다.");
         boardService.게시글쓰기(saveDTO);
         return "redirect:/";
     }
