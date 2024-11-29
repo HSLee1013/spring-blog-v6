@@ -21,7 +21,9 @@ public class Board {
     private String title;
     private String content;
 
-    @ManyToOne
+    // LAZY 기본키만 채워서 넣는다.
+    // EAGER user을 left join해서 다 채워 넣는다.
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @CreationTimestamp

@@ -1,6 +1,7 @@
 package com.example.blog.board;
 
 import com.example.blog._core.error.ex.Exception404;
+import com.example.blog.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 // 책임: 비즈니스 로직 처리(트랙잭션 관리), DTO 생성
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class BoardService {
@@ -37,9 +39,9 @@ public class BoardService {
         boardRepository.save(saveDTO.toEntity());
     } // commit or rollback
 
-    public BoardResponse.DetailDTO 게시글상세보기(int id) {
+    public BoardResponse.DetailDTO 게시글상세보기(int id, User sessionUser) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : " + id));
-        return new BoardResponse.DetailDTO(board);
+        return new BoardResponse.DetailDTO(board, sessionUser);
     }
 
     public List<BoardResponse.DTO> 게시글목록보기() {

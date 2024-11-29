@@ -4,15 +4,30 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
+import java.util.Optional;
 
 @Import(BoardRepository.class)
 @DataJpaTest // DB 관련된 자원들을 메모리에 올린다.
 public class BoardRepositoryTest { // 클래스 명 뒤에 Test를 붙이는게 약속이다.
     @Autowired
     BoardRepository boardRepository;
+
+    @Test
+    public void findById_test() {
+        // given
+        Integer id = 1;
+
+        // when
+        Optional<Board> boardOP = boardRepository.findById(id);
+        Board board = boardOP.get();
+        // then(eye)
+        System.out.println("Lazy Loading 직전");
+        System.out.println(board.getUser().getId());
+        System.out.println(board.getUser().getUsername());
+        System.out.println("Lazy Loading 직후");
+    }
 
     @Test
     public void update_test() {
@@ -49,13 +64,13 @@ public class BoardRepositoryTest { // 클래스 명 뒤에 Test를 붙이는게 
         String title = "제목6";
         String content = "내용6";
         // when
-        boardRepository.save(new Board(null, title, content, null));
+        boardRepository.save(Board.builder().title(title).content(content).build());
         // then(eye)
-//        Board board = boardRepository.findById(6);
-//        System.out.println(board.getId());
-//        System.out.println(board.getTitle());
-//        System.out.println(board.getContent());
-//        System.out.println(board.getCreatedAt());
+        Optional<Board> board = boardRepository.findById(6);
+        System.out.println(board.get().getId());
+        System.out.println(board.get().getTitle());
+        System.out.println(board.get().getContent());
+        System.out.println(board.get().getCreatedAt());
     } // rollback (@Transactional)
 
     // 메서드명 뒤에 _test를 붙이는게 약속이다.

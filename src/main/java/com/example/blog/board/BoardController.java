@@ -1,8 +1,11 @@
 package com.example.blog.board;
 
+import com.example.blog.user.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +32,7 @@ public class BoardController {
     public String updateForm(@PathVariable Integer id, Model model) {
         BoardResponse.UpdateFormDTO updateFormDTO = boardService.게시글수정화면보기(id);
         model.addAttribute("model", updateFormDTO);
-        return "update-form";
+        return "board/update-form";
     }
 
     @PostMapping("/board/{id}/delete")
@@ -46,7 +49,7 @@ public class BoardController {
 
     @GetMapping("/board/save-form")
     public String saveForm() {
-        return "save-form";
+        return "board/save-form";
     }
 
     /**
@@ -54,10 +57,11 @@ public class BoardController {
      * 패스변수(where절) : /board/1
      */
     @GetMapping("/board/{id}")
-    public String detail(@PathVariable("id") Integer id, Model model) {
-        BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id);
+    public String detail(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
+        User sessionUser = (User) request.getSession().getAttribute("sessionUser");
+        BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id, sessionUser);
         model.addAttribute("model", boardDetail);
-        return "detail";
+        return "board/detail";
     }
 
     // view resolver가 뷰를 찾아준다.
