@@ -13,13 +13,12 @@ public class BoardRequest {
         private String content;
 
         public Board toEntity() {
-            Board board = new Board(null, title, content, null);
-            return board;
+            return Board.builder().title(title).content(content).build();
         }
     }
 
     @Data
-    public class UpdateDTO {
+    public static class UpdateDTO {
         @NotBlank
         private String title;
         @NotBlank
